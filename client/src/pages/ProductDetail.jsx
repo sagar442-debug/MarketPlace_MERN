@@ -89,6 +89,11 @@ const ProductDetail = () => {
     }
   };
 
+  const onAddToBag = (e) => {
+    e.preventDefault();
+    console.log("Add to bag");
+  };
+
   return (
     <div className="min-h-[100vh] font-monsterrat">
       {productData ? (
@@ -205,7 +210,10 @@ const ProductDetail = () => {
                 <button className="text-white border-[1px] border-black bg-black p-3 hover:bg-white hover:text-black hover:border-white duration-200 rounded-xl">
                   Buy now
                 </button>
-                <button className="text-white border-white border-[1px] p-3 hover:bg-white hover:text-black duration-200 rounded-xl flex items-center space-x-3  ">
+                <button
+                  onClick={onAddToBag}
+                  className="text-white border-white border-[1px] p-3 hover:bg-white hover:text-black duration-200 rounded-xl flex items-center space-x-3  "
+                >
                   <span>
                     <FaBagShopping />
                   </span>

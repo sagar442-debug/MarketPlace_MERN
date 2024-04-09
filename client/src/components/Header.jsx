@@ -99,7 +99,7 @@ const Header = () => {
               <Link to={"/upload"}>
                 <RiUpload2Fill className="text-2xl mr-8 hover:text-gray-400 duration-200" />
               </Link>
-              <Link to={"/profile"}>
+              <Link to={"/addtobag"}>
                 <FaShoppingBag className="text-xl duration-200 mr-8 hover:text-gray-400" />
               </Link>
               <Link to={"/profile"}>
