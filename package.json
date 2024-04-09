@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "start:server": "cd backend && npm run start ",
+    "start:client": "cd client && npm run dev --host",
+    "start:both": "concurrently \"npm run start:server\" \"npm run start:client\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.540.0",
+    "pure-react-carousel": "^1.30.1"
+  }
+}
