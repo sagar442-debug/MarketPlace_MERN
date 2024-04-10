@@ -5,11 +5,19 @@ import { FaShoppingBag } from "react-icons/fa";
 import { IoBagCheck } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import LoadingComp from "../components/LoadingComp";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const ProductSlideCarousel = ({ categoryTitle }) => {
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(true);
   const [bag, setBag] = useState(false);
+  const [message, setMessage] = useState("");
+  const notifySuccess = (message) => toast.success(message);
+  const navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
 
   const responsive = {
     superLargeDesktop: {
@@ -18,7 +26,7 @@ const ProductSlideCarousel = ({ categoryTitle }) => {
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 3,
+      items: 3.5,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
@@ -59,61 +67,98 @@ const ProductSlideCarousel = ({ categoryTitle }) => {
     getApi();
   }, [loading]);
 
-  const handleBag = () => {
-    setBag(!bag);
+  const handleBag = async (e, item) => {
+    const productId = item._id;
+    e.preventDefault();
+
+    if (!token) {
+      navigate("/login");
+    } else {
+      try {
+        const response = await fetch("http://localhost:5001/user/addtocart", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ productId }),
+        });
+
+        if (!response.ok) {
+          console.log("Cannot fetch the data");
+        } else {
+          toast.success("Item added successfully", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      } catch (error) {
+        console.error("Error", error.message);
+      }
+    }
   };
 
   return (
     <div className="text-white font-monsterrat">
+      <ToastContainer />
       {loading ? (
         <LoadingComp />
       ) : (
         <>
           {product && product.length > 0 ? (
-            <Carousel className="" responsive={responsive}>
-              {product.map((item, index) => (
-                <div
-                  key={index}
-                  className=" mr-5 bg-[#f6f6f6] shadow-[0_10px_10px_0px_rgba(0,0,0,0.8)] w-72"
-                >
-                  <Link key={index} to={`/product/${item._id}`}>
-                    <img
-                      className="w-72 h-48 object-cover"
-                      src={item.imgUrl}
-                      alt={item.title}
-                    />
-                  </Link>
-                  <div className="justify-center flex mt-2">
-                    <button className="p-2 w-32 rounded-full  bg-black  mr-2 hover:bg-white hover:drop-shadow-lg  duration-200 hover:text-black">
-                      Buy
-                    </button>
-                    {!bag ? (
-                      <button
-                        className="duration200 ease-in"
-                        onClick={handleBag}
-                      >
-                        <FaShoppingBag className="text-black text-xl" />
+            <div>
+              <Carousel className="" responsive={responsive}>
+                {product.map((item, index) => (
+                  <div
+                    key={index}
+                    className=" mr-5 bg-[#f6f6f6] shadow-[0_10px_10px_0px_rgba(0,0,0,0.8)] w-72"
+                  >
+                    <Link key={index} to={`/product/${item._id}`}>
+                      <img
+                        className="w-72 h-48 object-cover"
+                        src={item.imgUrl}
+                        alt={item.title}
+                      />
+                    </Link>
+                    <div className="justify-center flex mt-2">
+                      <button className="p-2 w-32 rounded-full  bg-black  mr-2 hover:bg-white hover:drop-shadow-lg  duration-200 hover:text-black">
+                        Buy
                       </button>
-                    ) : (
-                      <button
-                        className="duration200 ease-in"
-                        onClick={handleBag}
-                      >
-                        <IoBagCheck className="text-black text-xl" />
-                      </button>
-                    )}
+
+                      {!bag ? (
+                        <button
+                          className="duration200 ease-in"
+                          onClick={(e) => handleBag(e, item)}
+                        >
+                          <FaShoppingBag className="text-black text-xl" />
+                        </button>
+                      ) : (
+                        <button
+                          className="duration200 ease-in"
+                          onClick={(e) => handleBag(e, item)}
+                        >
+                          <IoBagCheck className="text-black text-xl" />
+                        </button>
+                      )}
+                    </div>
+                    <h3 className=" text-center py-2 text-black whitespace-nowrap overflow-hidden font-medium ">
+                      {item.title}
+                    </h3>
+                    <div className="flex justify-evenly px-10">
+                      <h1 className="text-gray-700 text-center text-2xl py-1 font-semibold ">
+                        ${item.price}
+                      </h1>
+                    </div>
                   </div>
-                  <h3 className=" text-center py-2 text-black whitespace-nowrap overflow-hidden font-medium ">
-                    {item.title}
-                  </h3>
-                  <div className="flex justify-evenly px-10">
-                    <h1 className="text-gray-700 text-center text-2xl py-1 font-semibold ">
-                      ${item.price}
-                    </h1>
-                  </div>
-                </div>
-              ))}
-            </Carousel>
+                ))}
+              </Carousel>
+            </div>
           ) : (
             <div>No products available</div>
           )}

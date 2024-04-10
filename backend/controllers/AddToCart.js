@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const AddToCart = async (req, res) => {
-  const { productId, quantity } = req.body;
+  const { productId, quantity = 1 } = req.body;
 
   const tokenFind = req.headers.authorization.split(" ")[1];
   try {
@@ -18,7 +18,7 @@ const AddToCart = async (req, res) => {
     }
 
     const existingCartIndex = user.cart.findIndex(
-      (item) => item.productId.toString() === productId
+      (item) => item.productId === productId
     );
 
     if (existingCartIndex !== -1) {
