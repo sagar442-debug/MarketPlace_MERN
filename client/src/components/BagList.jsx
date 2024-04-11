@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 
-const BagList = () => {
+const BagList = ({ productDetail }) => {
   const [quantity, setQuantity] = useState(1);
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -12,15 +12,26 @@ const BagList = () => {
       setQuantity(quantity - 1);
     }
   };
+
+  useEffect(() => {}, []);
+
   return (
     <div>
       <div className="lists-component bg-gray-200 py-3 px-5 rounded-xl flex justify-between items-center mt-3">
         <div className="flex space-x-5">
-          <img className="h-20 w-20 object-cover" src="" alt="" />
+          <img
+            className="h-20 w-20 object-cover"
+            src={productDetail.imgUrl}
+            alt={productDetail.title}
+          />
           <div className="details">
-            <h1 className="font-medium">Not much</h1>
-            <p className="">nothing</p>
-            <h1 className="text-xl font-medium">$100</h1>
+            <h1 className="font-medium">{productDetail.title}</h1>
+            <p className="">
+              {productDetail.description.length > 40
+                ? `${productDetail.description.slice(0, 40)}...`
+                : productDetail.description}
+            </p>
+            <h1 className="text-xl font-medium">${productDetail.price}</h1>
           </div>
         </div>
         <div className="flex justify-between items-center">

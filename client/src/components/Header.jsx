@@ -96,8 +96,8 @@ const Header = () => {
         {isAuthenticate ? (
           <div className="flex space-x-10 items-center">
             <div className="flex items-center">
-              <Link to={"/upload"}>
-                <RiUpload2Fill className="text-2xl mr-8 hover:text-gray-400 duration-200" />
+              <Link className="mr-8" to={"/upload"}>
+                <RiUpload2Fill className="text-2xl  hover:text-gray-400 duration-200" />
               </Link>
               <Link to={"/addtobag"}>
                 <FaShoppingBag className="text-xl duration-200 mr-8 hover:text-gray-400" />

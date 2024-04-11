@@ -34,9 +34,15 @@ const Listings = () => {
   return (
     <div className="font-monsterrat min-h-[100vh] py-5 ">
       <h1 className="text-gray-300 text-2xl font-medium ">Your Listings</h1>
-      {productList.map((product) => {
-        return <List key={product._id} product={product} />;
-      })}
+      {productList.length === 0 ? (
+        <div className="text-white text-3xl mt-5 font-semibold text-center">
+          Upload a product to see the list
+        </div>
+      ) : (
+        productList.map((product) => (
+          <List key={product._id} product={product} />
+        ))
+      )}
     </div>
   );
 };

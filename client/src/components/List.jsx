@@ -14,7 +14,7 @@ const List = ({ product }) => {
         <div className="details">
           <h1 className="font-medium">{product.title}</h1>
           <p className="">{product.description.slice(0, 50)}...</p>
-          <h1 className="text-xl font-medium">$100</h1>
+          <h1 className="text-xl font-medium">${product.price}</h1>
         </div>
       </div>
       <div className="flex justify-between">

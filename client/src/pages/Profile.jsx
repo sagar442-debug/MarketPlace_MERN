@@ -48,7 +48,7 @@ const Profile = () => {
     }
 
     userData();
-  }, []);
+  }, [token]);
 
   const handleSaveChanges = async (e) => {
     e.preventDefault();
