@@ -12,12 +12,14 @@ import { loginUser } from "../features/auth/authSlice";
 import { FaUserCircle } from "react-icons/fa";
 import { RiUpload2Fill } from "react-icons/ri";
 import { IoMdCart } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const isAuthenticate = useSelector((state) => state.auth.isAuthenticate);
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (token) {
@@ -53,6 +55,7 @@ const Header = () => {
     e.preventDefault();
     localStorage.removeItem("token");
     dispatch(logoutUser());
+    navigate("/");
   };
 
   return (

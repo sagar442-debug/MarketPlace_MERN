@@ -23,6 +23,7 @@ const AddToCart = async (req, res) => {
 
     if (existingCartIndex !== -1) {
       user.cart[existingCartIndex].quantity += quantity;
+      console.log("the item exists");
     } else {
       user.cart.push({ productId, quantity });
     }
@@ -36,4 +37,27 @@ const AddToCart = async (req, res) => {
   }
 };
 
-module.exports = AddToCart;
+const deleteItem = async (req, res) => {
+  const { productId } = req.body;
+
+  const token = req.headers.authorization.split(" ")[1];
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const id = decoded.id;
+    const user = await User.findById(id);
+    if (!user) {
+      res.status(404).json({ message: "User not found!" });
+    }
+
+    const index = user.cart.findIndex((item) => item.productId === productId);
+
+    if (index === -1) {
+      user.cart.splice(index, 1);
+    }
+
+    await user.save();
+  } catch (error) {}
+};
+
+module.exports = { deleteItem, AddToCart };
