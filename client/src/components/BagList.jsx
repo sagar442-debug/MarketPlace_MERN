@@ -2,18 +2,38 @@ import React, { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 
-const BagList = ({ productDetail }) => {
-  const [quantity, setQuantity] = useState(1);
+const BagList = ({ productDetail, detailId, quantity }) => {
+  // const [quantity, setQuantity] = useState(1);
+  const token = localStorage.getItem("token");
   const increaseQuantity = () => {
-    setQuantity(quantity + 1);
+    console.log("increase");
   };
   const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
+    console.log("Decreased");
   };
 
   useEffect(() => {}, []);
+
+  const onDeleteItem = async (e) => {
+    let _id = detailId;
+    try {
+      const response = await fetch("http://localhost:5001/user/deletecart", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ _id }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete item from cart");
+      }
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting item from cart:", error.message);
+    }
+  };
 
   return (
     <div>
@@ -44,8 +64,12 @@ const BagList = ({ productDetail }) => {
               +
             </button>
           </div>
+
           <button className=" p-2">
-            <FaTrash className="text-red-600 cursor-pointer text-xl" />
+            <FaTrash
+              onClick={(e) => onDeleteItem(e)}
+              className="text-red-600 cursor-pointer text-xl"
+            />
           </button>
         </div>
       </div>

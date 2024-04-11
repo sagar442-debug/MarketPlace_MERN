@@ -17,13 +17,12 @@ const AddToCart = async (req, res) => {
       res.status(404).json({ message: "User not found!" });
     }
 
-    const existingCartIndex = user.cart.findIndex(
-      (item) => item.productId === productId
-    );
+    const existingCartIndex = user.cart.findIndex((item, index) => {
+      return item.productId.toString() === productId.toString();
+    });
 
     if (existingCartIndex !== -1) {
       user.cart[existingCartIndex].quantity += quantity;
-      console.log("the item exists");
     } else {
       user.cart.push({ productId, quantity });
     }
@@ -37,27 +36,37 @@ const AddToCart = async (req, res) => {
   }
 };
 
-const deleteItem = async (req, res) => {
-  const { productId } = req.body;
+const DeleteItem = async (req, res) => {
+  const { _id } = req.body;
 
-  const token = req.headers.authorization.split(" ")[1];
-
+  const tokenFind = req.headers.authorization.split(" ")[1];
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const id = decoded.id;
+    const decoded = jwt.verify(tokenFind, process.env.JWT_SECRET);
+    const id = decoded.userId;
     const user = await User.findById(id);
     if (!user) {
-      res.status(404).json({ message: "User not found!" });
+      return res.status(404).json({ message: "User not found!" });
     }
 
-    const index = user.cart.findIndex((item) => item.productId === productId);
+    // console.log(user.cart);
 
-    if (index === -1) {
+    const index = user.cart.findIndex((item, index) => {
+      return item._id.toString() === _id.toString();
+    });
+
+    if (index !== -1) {
       user.cart.splice(index, 1);
+      await user.save();
+      return res
+        .status(200)
+        .json({ message: "Item deleted from cart successfully!", user });
+    } else {
+      return res.status(404).json({ message: "Item not found in cart" });
     }
-
-    await user.save();
-  } catch (error) {}
+  } catch (error) {
+    console.error("Error removing item from cart:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
 
-module.exports = { deleteItem, AddToCart };
+module.exports = { DeleteItem, AddToCart };

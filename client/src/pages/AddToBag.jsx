@@ -12,6 +12,8 @@ const AddToBag = () => {
   const [bagProducts, setBagProducts] = useState([]);
   const navigate = useNavigate();
   const [totalCost, setTotalCost] = useState();
+  const [totalItem, setTotalItem] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!token) {
@@ -36,6 +38,7 @@ const AddToBag = () => {
       }
       const parsedData = await response.json();
       const bagDetails = parsedData.user.cart;
+      setTotalItem(bagDetails.length);
       setBagData(bagDetails);
     } catch (error) {
       console.error(error.message);
@@ -45,6 +48,7 @@ const AddToBag = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       const products = [];
+      setLoading(true);
       for (const bag of bagData) {
         try {
           const response = await fetch(
@@ -67,6 +71,7 @@ const AddToBag = () => {
         }
       }
       setBagProducts(products);
+      setLoading(false);
     };
 
     if (bagData.length > 0) {
@@ -96,17 +101,39 @@ const AddToBag = () => {
       {bagProducts.length > 0 ? (
         <>
           {bagProducts.map((bag, i) => {
-            // setTotalCost(totalCost + bag.price);
-            return <BagList key={i} productDetail={bag} />;
+            let detailId = bagData[i]._id;
+            let quantities = bagData[i].quantity;
+            return (
+              <BagList
+                key={i}
+                productDetail={bag}
+                detailId={detailId}
+                quantity={quantities}
+              />
+            );
           })}
-          <div className="text-white text-2xl font-medium mt-5 text-center">
-            Total Cost: ${totalCost}
+          <div className="text-white mt-5 text-right border-t-[1px] pt-5 border-[#fff7] font-monsterrat">
+            <h1 className="text-2xl font-medium">
+              {" "}
+              Subtotal ({totalItem} item) : ${totalCost}
+            </h1>
+            <button className="p-2 bg-[#778f4b] text-white rounded-lg text-xl mt-2 px-4 font-medium hover:bg-gray-500 duration-200">
+              Proceed to checkout
+            </button>
           </div>
         </>
       ) : (
-        <div className="text-white">
-          <BeatLoader className="text-center mt-5" color="#fff" size={30} />
-        </div>
+        <>
+          {loading ? (
+            <div className="text-white">
+              <BeatLoader className="text-center mt-5" color="#fff" size={30} />
+            </div>
+          ) : (
+            <div className="text-white font-monsterrat text-2xl text-center font-medium mt-28">
+              Your bag is empty
+            </div>
+          )}
+        </>
       )}
     </div>
   );
