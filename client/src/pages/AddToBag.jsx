@@ -23,6 +23,23 @@ const AddToBag = () => {
     }
   }, [params, token]);
 
+  useEffect(() => {
+    updateTotalCost();
+  }, [totalCost]);
+
+  const updateTotalCost = () => {
+    if (bagProducts.length > 0) {
+      let total = 0;
+      bagData.forEach((item, i) => {
+        let quantity = item.quantity;
+        let price = bagProducts[i].price;
+        let cost = quantity * price;
+        total += cost;
+      });
+      setTotalCost(total);
+    }
+  };
+
   const userData = async () => {
     try {
       const response = await fetch("http://localhost:5001/user/data", {
@@ -109,6 +126,7 @@ const AddToBag = () => {
                 productDetail={bag}
                 detailId={detailId}
                 quantity={quantities}
+                updateTotalCost={updateTotalCost}
               />
             );
           })}

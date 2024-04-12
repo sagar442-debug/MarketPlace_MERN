@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 
-const BagList = ({ productDetail, detailId, quantity }) => {
+const BagList = ({ productDetail, detailId, quantity, updateTotalCost }) => {
   const [finalQuantity, setFinalQuantity] = useState(quantity);
   const token = localStorage.getItem("token");
   const increaseQuantity = async (e) => {
@@ -24,7 +24,9 @@ const BagList = ({ productDetail, detailId, quantity }) => {
         throw new Error("Failed to increase the quantity");
       }
       const data = await response.json();
+      updateTotalCost(quantity + 1, productDetail.price);
       setFinalQuantity(data.quantity);
+      window.location.reload();
     } catch (error) {
       console.error("There was error fetching the data", error.message);
     }
@@ -50,7 +52,9 @@ const BagList = ({ productDetail, detailId, quantity }) => {
         throw new Error("Failed to decrease the quantity");
       }
       if (finalQuantity > 1) {
+        updateTotalCost(quantity - 1, productDetail.price);
         setFinalQuantity(data.quantity);
+        window.location.reload();
       } else {
         window.location.reload();
       }
