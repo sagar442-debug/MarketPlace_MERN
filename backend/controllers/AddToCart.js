@@ -69,4 +69,46 @@ const DeleteItem = async (req, res) => {
   }
 };
 
-module.exports = { DeleteItem, AddToCart };
+const quantityChange = async (req, res) => {
+  const _id = req.params._id;
+  const { action } = req.body;
+  const token = req.headers.authorization.split(" ")[1];
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const id = decoded.userId;
+    const user = await User.findById(id);
+
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+    }
+
+    const item = user.cart.find((item) => item._id.toString() === _id);
+
+    if (!item) {
+      return res.status(404).json({ message: "Item not found in cart" });
+    }
+    if (action === "increase") {
+      item.quantity += 1;
+    } else if (action === "decrease") {
+      if (item.quantity > 1) {
+        item.quantity -= 1;
+      } else {
+        const index = user.cart.findIndex(
+          (item) => item._id.toString() === _id
+        );
+        user.cart.splice(index, 1);
+      }
+    } else {
+      res.status(400).json({ message: "Invalid action" });
+    }
+
+    await user.save();
+    res.status(200).json({ message: "Quantity updated successfully", user });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+module.exports = { DeleteItem, AddToCart, quantityChange };
