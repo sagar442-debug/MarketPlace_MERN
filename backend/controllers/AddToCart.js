@@ -104,7 +104,12 @@ const quantityChange = async (req, res) => {
     }
 
     await user.save();
-    res.status(200).json({ message: "Quantity updated successfully", user });
+    res
+      .status(200)
+      .json({
+        message: "Quantity updated successfully",
+        quantity: item.quantity,
+      });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal server error" });

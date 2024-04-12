@@ -3,13 +3,60 @@ import { FaTrash } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 
 const BagList = ({ productDetail, detailId, quantity }) => {
-  // const [quantity, setQuantity] = useState(1);
+  const [finalQuantity, setFinalQuantity] = useState(quantity);
   const token = localStorage.getItem("token");
-  const increaseQuantity = () => {
-    console.log("increase");
+  const increaseQuantity = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `http://localhost:5001/user/changequantity/${detailId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ action: "increase" }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to increase the quantity");
+      }
+      const data = await response.json();
+      setFinalQuantity(data.quantity);
+    } catch (error) {
+      console.error("There was error fetching the data", error.message);
+    }
   };
-  const decreaseQuantity = () => {
-    console.log("Decreased");
+  const decreaseQuantity = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `http://localhost:5001/user/changequantity/${detailId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ action: "decrease" }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error("Failed to decrease the quantity");
+      }
+      if (finalQuantity > 1) {
+        setFinalQuantity(data.quantity);
+      } else {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("There was error fetching the data", error.message);
+    }
   };
 
   useEffect(() => {}, []);
@@ -56,11 +103,11 @@ const BagList = ({ productDetail, detailId, quantity }) => {
         </div>
         <div className="flex justify-between items-center">
           <div className="quantity text-black border-black text-lg flex space-x-3 items-center border-[1px] justify-center mt-2 px-2 mr-3">
-            <button className="" onClick={() => decreaseQuantity()}>
+            <button className="" onClick={(e) => decreaseQuantity(e)}>
               -
             </button>
-            <h1 className="">{quantity}</h1>
-            <button className="" onClick={() => increaseQuantity()}>
+            <h1 className="">{finalQuantity}</h1>
+            <button className="" onClick={(e) => increaseQuantity(e)}>
               +
             </button>
           </div>
