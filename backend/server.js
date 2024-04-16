@@ -5,6 +5,7 @@ const cors = require("cors");
 const authRoutes = require("./routes/authRoutes.js");
 const categoryRoutes = require("./routes/categoryRoutes.js");
 const UserDetails = require("./routes/UserDetailRoutes.js");
+const searchProduct = require("./controllers/SearchProducts.js");
 app.use(cors());
 require("dotenv").config();
 
@@ -23,3 +24,4 @@ app.listen(PORT, (req, res) => {
 app.use("/auth", authRoutes);
 app.use("/category", categoryRoutes);
 app.use("/user", UserDetails);
+app.use("/product", searchProduct);
