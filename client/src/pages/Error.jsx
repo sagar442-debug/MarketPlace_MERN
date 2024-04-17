@@ -7,7 +7,7 @@ const Error = () => {
 
   if (error.status == 404) {
     return (
-      <div className="text-center mt-5">
+      <div className=" text-center p-5 text-white font-monsterrat">
         <h1 className="text-5xl font-semibold my-5">Ohh! Page not found</h1>
         <p className="text-3xl">
           The page you are looking for doesn't seem to exist
@@ -19,7 +19,7 @@ const Error = () => {
     );
   }
   return (
-    <div>
+    <div className="p-5">
       <h1 className="text-3xl font-semibold">Something went wrong!!!</h1>
       <Link className="text-xl" to={"/"}>
         Back to home

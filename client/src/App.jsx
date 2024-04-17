@@ -17,6 +17,7 @@ import ProductDetail from "./pages/ProductDetail";
 import TestCarousel from "./components/TestCarousel";
 import TestSkeleton from "./pages/TestSkeleton";
 import AddToBag from "./pages/AddToBag";
+import ProductSearchingPage from "./pages/ProductSearchingPage";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -85,6 +86,10 @@ const App = () => {
         {
           path: "/addtobag",
           element: <AddToBag />,
+        },
+        {
+          path: "/search/:productTitle",
+          element: <ProductSearchingPage />,
         },
       ],
     },

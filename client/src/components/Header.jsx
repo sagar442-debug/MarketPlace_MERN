@@ -75,6 +75,7 @@ const Header = () => {
           <div
             onMouseEnter={() => setIsOpen(true)}
             onMouseLeave={() => setIsOpen(false)}
+            onMouseOut={() => setIsOpen(true)}
             className="absolute z-30 left-[59%] top-[50px] border-[1px]  mt-2 bg-white text-black rounded-md overflow-hidden shadow-xl "
           >
             <div className="w-48">
