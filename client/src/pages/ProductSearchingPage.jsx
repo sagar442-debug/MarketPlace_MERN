@@ -1,20 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ProductSearchingPage = () => {
   const params = useParams();
-  const [productTitle, setProductTitle] = useState(params.productTitle);
+  console.log(params);
+  const navigate = useNavigate();
+  const [productTitle, setProductTitle] = useState(
+    params.productTitle ? params.productTitle.replace(/_/g, " ") : ""
+  );
+
   const [selectedOption, setSelectedOption] = useState("");
+  const [totalProducts, setTotalProducts] = useState([]);
 
   useEffect(() => {
-    setProductTitle(params.productTitle.replace(/-/g, " "));
+    if (params.productTitle) {
+      setProductTitle(params.productTitle.replace(/_/g, " "));
+    } else {
+      setProductTitle(""); // Reset productTitle state if the parameter is not present
+      navigate("/"); // Redirect to home page if the parameter is not present
+    }
     fetchData();
-  }, [params.productTitle]);
+  }, [params, productTitle]);
+
+  useEffect(() => {});
 
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5001/product/search?term=${{ productTitle }}`,
+        `http://localhost:5001/product/search?term=${productTitle}`,
         {
           method: "GET",
           headers: {
@@ -28,7 +42,7 @@ const ProductSearchingPage = () => {
       }
 
       const data = await response.json();
-      console.log(data);
+      setTotalProducts(data);
     } catch (error) {
       console.error("Error trying to fetch", error.message);
     }
@@ -49,16 +63,72 @@ const ProductSearchingPage = () => {
           onChange={handleSelectChange}
         >
           <option className="outline-none" value="option1">
-            Option 1
+            Filters
           </option>
           <option className="outline-none" value="option2">
-            Option 2
+            low to high
           </option>
           <option className="outline-none" value="option3">
-            Option 3
+            high to low
+          </option>
+          <option className="outline-none" value="option4">
+            Recommended
           </option>
         </select>
       </div>
+
+      {totalProducts.length > 0 ? (
+        <div className="grid grid-cols-4 gap-11 mt-4 max-w-full">
+          {totalProducts.map((product, i) => (
+            <div className="card bg-white w-[15rem]" key={i}>
+              <Link to={`/product/${product._id}`}>
+                <img
+                  className="w-72 h-48 object-cover"
+                  src={product.imgUrl}
+                  alt=""
+                />
+              </Link>
+
+              <div className="texts p-2">
+                <div className="flex justify-center">
+                  <button className="p-2 w-32 rounded-full text-white bg-black  mr-2 hover:bg-white hover:drop-shadow-lg  duration-200 hover:text-black">
+                    Buy
+                  </button>
+                </div>
+                <h3 className=" text-center py-2 text-black whitespace-nowrap overflow-hidden font-medium text-xl">
+                  {product.title}
+                </h3>
+                <h1 className="text-gray-700 text-center text-2xl font-semibold ">
+                  ${product.price}
+                </h1>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <h1>No products</h1>
+      )}
+
+      {/* <div className="card bg-white w-72 ">
+        <img
+          className="w-72 h-48 object-cover"
+          src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/4dcd9f93-1594-48b7-9c5d-d4bebee011ed/air-jordan-1-low-g-golf-shoes-knwwrG.png"
+          alt=""
+        />
+        <div className="texts p-2">
+          <div className="flex justify-center">
+            <button className="p-2 w-32 rounded-full text-white bg-black  mr-2 hover:bg-white hover:drop-shadow-lg  duration-200 hover:text-black">
+              Buy
+            </button>
+          </div>
+          <h3 className=" text-center py-2 text-black whitespace-nowrap overflow-hidden font-medium text-xl">
+            Title of the products
+          </h3>
+          <h1 className="text-gray-700 text-center text-2xl font-semibold ">
+            $170
+          </h1>
+        </div>
+      </div> */}
     </div>
   );
 };

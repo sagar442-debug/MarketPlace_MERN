@@ -27,7 +27,7 @@ const SearchBar = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5001/product/search?term=${searchTitle}`,
+        `http://localhost:5001/product/search?term=${inputValue}`, // Use inputValue instead of searchTitle
         {
           method: "GET",
           headers: {
@@ -50,7 +50,7 @@ const SearchBar = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (searchTitle !== "") {
-      navigate(`/search/${searchTitle.replace(/\s+/g, "-")}`);
+      navigate(`/search/${searchTitle.replace(/\s+/g, "_")}`);
     }
     setSearchTitle(products.title);
   };
@@ -83,7 +83,7 @@ const SearchBar = () => {
               <li className="" key={i}>
                 <Link
                   className="flex justify-between items-center cursor-pointer hover:text-gray-600 space-y-3"
-                  to={`/search/${products.title.replace(/\s+/g, "-")}`}
+                  to={`/search/${products.title.replace(/\s+/g, "_")}`}
                   onClick={() => changeTitle(products)}
                 >
                   <span className=" duration-200">{products.title}</span>
