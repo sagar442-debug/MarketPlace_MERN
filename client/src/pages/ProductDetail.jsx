@@ -6,6 +6,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 import {
   CarouselProvider,
   Slider,
@@ -19,6 +20,7 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 
 const ProductDetail = () => {
   const { productId } = useParams();
+  const navigate = useNavigate();
   const [productData, setProductData] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [image, setImage] = useState();
@@ -121,6 +123,32 @@ const ProductDetail = () => {
             progress: undefined,
             theme: "light",
           });
+        }
+      } catch (error) {
+        console.error("Error", error.message);
+      }
+    }
+  };
+
+  const handleBuy = async (e) => {
+    e.preventDefault();
+    if (!token) {
+      navigate("/login");
+    } else {
+      try {
+        const response = await fetch("http://localhost:5001/user/addtocart", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ productId, quantity }),
+        });
+
+        if (!response.ok) {
+          console.log("Cannot fetch the data");
+        } else {
+          navigate("/addtobag");
         }
       } catch (error) {
         console.error("Error", error.message);
@@ -242,7 +270,10 @@ const ProductDetail = () => {
                 </div>
               </div>
               <div className="buttons mt-6  flex space-x-4">
-                <button className="text-white border-[1px] border-black bg-black p-3 hover:bg-white hover:text-black hover:border-white duration-200 rounded-xl">
+                <button
+                  onClick={handleBuy}
+                  className="text-white border-[1px] border-black bg-black p-3 hover:bg-white hover:text-black hover:border-white duration-200 rounded-xl"
+                >
                   Buy now
                 </button>
                 <button

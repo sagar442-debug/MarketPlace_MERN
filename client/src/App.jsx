@@ -20,6 +20,7 @@ import AddToBag from "./pages/AddToBag";
 import ProductSearchingPage from "./pages/ProductSearchingPage";
 import CategorySelectPage from "./pages/CategorySelectPage";
 import Successfull from "./pages/Successfull";
+import Footer from "./components/Footer";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -127,6 +128,7 @@ const App = () => {
         <div className="max-w-[1080px] mx-auto align items-center">
           <RouterProvider router={router} />
         </div>
+        <Footer />
       </div>
     </DataContext.Provider>
   );

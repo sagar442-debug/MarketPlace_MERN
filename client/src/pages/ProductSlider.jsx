@@ -104,6 +104,36 @@ const ProductSlideCarousel = ({ categoryTitle }) => {
     }
   };
 
+  const handleBuy = async (e, item) => {
+    e.preventDefault();
+
+    const productId = item._id;
+    e.preventDefault();
+
+    if (!token) {
+      navigate("/login");
+    } else {
+      try {
+        const response = await fetch("http://localhost:5001/user/addtocart", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ productId }),
+        });
+
+        if (!response.ok) {
+          console.log("Cannot fetch the data");
+        } else {
+          navigate("/addtobag");
+        }
+      } catch (error) {
+        console.error("Error", error.message);
+      }
+    }
+  };
+
   return (
     <div className="text-white font-monsterrat">
       <ToastContainer />
@@ -127,7 +157,10 @@ const ProductSlideCarousel = ({ categoryTitle }) => {
                       />
                     </Link>
                     <div className="justify-center flex mt-2">
-                      <button className="p-2 w-32 rounded-full  bg-black  mr-2 hover:bg-white hover:drop-shadow-lg  duration-200 hover:text-black">
+                      <button
+                        onClick={(e) => handleBuy(e, item)}
+                        className="p-2 w-32 rounded-full  bg-black  mr-2 hover:bg-white hover:drop-shadow-lg  duration-200 hover:text-black"
+                      >
                         Buy
                       </button>
 
