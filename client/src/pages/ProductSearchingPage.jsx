@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 const ProductSearchingPage = () => {
   const params = useParams();
-  console.log(params);
   const navigate = useNavigate();
   const [productTitle, setProductTitle] = useState(
     params.productTitle ? params.productTitle.replace(/_/g, " ") : ""
@@ -12,6 +11,7 @@ const ProductSearchingPage = () => {
 
   const [selectedOption, setSelectedOption] = useState("");
   const [totalProducts, setTotalProducts] = useState([]);
+  const [originalProducts, setOriginalProducts] = useState([]);
 
   useEffect(() => {
     if (params.productTitle) {
@@ -43,13 +43,34 @@ const ProductSearchingPage = () => {
 
       const data = await response.json();
       setTotalProducts(data);
+      setOriginalProducts(data);
     } catch (error) {
       console.error("Error trying to fetch", error.message);
     }
   };
 
   const handleSelectChange = (e) => {
+    const newValue = e.target.value;
+    console.log(totalProducts);
     setSelectedOption(e.target.value);
+    if (newValue === "lowtohigh") {
+      const sortedProducts = [...totalProducts].sort(
+        (a, b) => a.price - b.price
+      );
+      setTotalProducts(sortedProducts);
+    } else if (newValue == "hightolow") {
+      const sortedProducts = [...totalProducts].sort(
+        (a, b) => b.price - a.price
+      );
+      setTotalProducts(sortedProducts);
+    } else if (newValue == "recommended") {
+      const sortedProducts = [...totalProducts].sort((a, b) => {
+        return new Date(b.uploadDate) - new Date(a.uploadDate);
+      });
+      setTotalProducts(sortedProducts);
+    } else {
+      setTotalProducts(originalProducts);
+    }
   };
 
   return (
@@ -62,16 +83,16 @@ const ProductSearchingPage = () => {
           value={selectedOption}
           onChange={handleSelectChange}
         >
-          <option className="outline-none" value="option1">
+          <option className="outline-none" value="filters">
             Filters
           </option>
-          <option className="outline-none" value="option2">
+          <option className="outline-none" value="lowtohigh">
             low to high
           </option>
-          <option className="outline-none" value="option3">
+          <option className="outline-none" value="hightolow">
             high to low
           </option>
-          <option className="outline-none" value="option4">
+          <option className="outline-none" value="recommended">
             Recommended
           </option>
         </select>

@@ -17,7 +17,6 @@ const SearchBar = () => {
   }, [params]);
 
   const changeTitle = (products) => {
-    console.log(searchTitle);
     setSearchTitle(products.title);
   };
 
@@ -52,7 +51,7 @@ const SearchBar = () => {
     if (searchTitle !== "") {
       navigate(`/search/${searchTitle.replace(/\s+/g, "_")}`);
     }
-    setSearchTitle(products.title);
+    // setSearchTitle(products.title);
   };
 
   return (
