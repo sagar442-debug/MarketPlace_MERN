@@ -14,6 +14,8 @@ const AddToBag = () => {
   const [totalCost, setTotalCost] = useState();
   const [totalItem, setTotalItem] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [stripeData, setStripeData] = useState([]);
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
     if (!token) {
@@ -30,12 +32,29 @@ const AddToBag = () => {
   const updateTotalCost = () => {
     if (bagProducts.length > 0) {
       let total = 0;
+      let updatedStripeData = [];
       bagData.forEach((item, i) => {
         let quantity = item.quantity;
-        let price = bagProducts[i].price;
+        let price = parseFloat(bagProducts[i].price);
         let cost = quantity * price;
         total += cost;
+
+        updatedStripeData.push({
+          quantity: quantity,
+          price: price,
+          cost: cost,
+          title: bagProducts[i].title,
+          category: bagProducts[i].category,
+          description: bagProducts[i].description,
+          imgUrl: bagProducts[i].imgUrl,
+          uploadDate: bagProducts[i].uploadDate,
+          uploadedBy: bagProducts[i].uploadedBy,
+          _id: bagProducts[i]._id,
+        });
       });
+
+      // After the loop, update the state once with the updatedStripeData array
+      setStripeData(updatedStripeData);
       setTotalCost(total);
     }
   };
@@ -54,6 +73,7 @@ const AddToBag = () => {
         return;
       }
       const parsedData = await response.json();
+      setUserId(parsedData.user._id);
       const bagDetails = parsedData.user.cart;
       setTotalItem(bagDetails.length);
       setBagData(bagDetails);
@@ -107,6 +127,42 @@ const AddToBag = () => {
     }
   }, [bagProducts]);
 
+  const handleCheckOut = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:5001/payment/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ items: stripeData }),
+      });
+
+      const data = await response.json();
+
+      window.location = data.url;
+      if (response.ok) {
+        try {
+          const empty = await fetch("http://localhost:5001/user/emptycart/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id: userId }), // Move body property outside of headers
+          });
+
+          if (!empty.ok) {
+            console.log("Error emptying the cart");
+          }
+        } catch (error) {
+          console.error("There was an error clearing the data", error.message);
+        }
+      }
+    } catch (error) {
+      console.log("There was an error", error.message);
+    }
+  };
+
   return (
     <div className="min-h-[100vh] ">
       <div className="flex space-x-4 items-center my-4 justify-center">
@@ -135,7 +191,10 @@ const AddToBag = () => {
               {" "}
               Subtotal ({totalItem} item) : ${totalCost}
             </h1>
-            <button className="p-2 bg-[#778f4b] text-white rounded-lg text-xl mt-2 px-4 font-medium hover:bg-gray-500 duration-200">
+            <button
+              onClick={handleCheckOut}
+              className="p-2 bg-[#778f4b] text-white rounded-lg text-xl mt-2 px-4 font-medium hover:bg-gray-500 duration-200"
+            >
               Proceed to checkout
             </button>
           </div>

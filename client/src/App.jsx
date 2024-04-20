@@ -18,6 +18,8 @@ import TestCarousel from "./components/TestCarousel";
 import TestSkeleton from "./pages/TestSkeleton";
 import AddToBag from "./pages/AddToBag";
 import ProductSearchingPage from "./pages/ProductSearchingPage";
+import CategorySelectPage from "./pages/CategorySelectPage";
+import Successfull from "./pages/Successfull";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -90,6 +92,14 @@ const App = () => {
         {
           path: "/search/:productTitle",
           element: <ProductSearchingPage />,
+        },
+        {
+          path: "/category/:category",
+          element: <CategorySelectPage />,
+        },
+        {
+          path: "/success",
+          element: <Successfull />,
         },
       ],
     },

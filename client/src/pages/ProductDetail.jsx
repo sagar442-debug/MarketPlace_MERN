@@ -4,6 +4,8 @@ import ProductSlideCarousel from "./ProductSlider";
 import { useParams } from "react-router-dom";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   CarouselProvider,
   Slider,
@@ -24,6 +26,7 @@ const ProductDetail = () => {
   const [altImage, setAltImage] = useState([]);
   const [thumbnailImage, setThumbnailImage] = useState();
   const [quantity, setQuantity] = useState(1);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -89,13 +92,45 @@ const ProductDetail = () => {
     }
   };
 
-  const onAddToBag = (e) => {
+  const onAddToBag = async (e) => {
     e.preventDefault();
-    console.log("Add to bag");
+
+    if (!token) {
+      navigate("/login");
+    } else {
+      try {
+        const response = await fetch("http://localhost:5001/user/addtocart", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ productId, quantity }),
+        });
+
+        if (!response.ok) {
+          console.log("Cannot fetch the data");
+        } else {
+          toast.success("Item added successfully", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      } catch (error) {
+        console.error("Error", error.message);
+      }
+    }
   };
 
   return (
     <div className="min-h-[100vh] font-monsterrat">
+      <ToastContainer />
       {productData ? (
         <div>
           <div className=" flex mt-10 ">

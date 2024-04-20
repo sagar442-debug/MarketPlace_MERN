@@ -6,6 +6,7 @@ const authRoutes = require("./routes/authRoutes.js");
 const categoryRoutes = require("./routes/categoryRoutes.js");
 const UserDetails = require("./routes/UserDetailRoutes.js");
 const searchProduct = require("./controllers/SearchProducts.js");
+const paymentGateway = require("./routes/paymentGateway.js");
 app.use(cors());
 require("dotenv").config();
 
@@ -25,3 +26,4 @@ app.use("/auth", authRoutes);
 app.use("/category", categoryRoutes);
 app.use("/user", UserDetails);
 app.use("/product", searchProduct);
+app.use("/payment", paymentGateway);

@@ -12,6 +12,7 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { FaShoppingBag } from "react-icons/fa";
 import { MdOutlineExplore } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const TestCarousel = () => {
   return (
@@ -37,12 +38,14 @@ const TestCarousel = () => {
               miss out on the opportunity to step up your game – grab your Nike
               24's gear today!
             </p>
-            <button className="text-white text-lg border-white border-[1px] p-3 hover:bg-white hover:text-black duration-200 rounded-xl flex items-center space-x-3  ">
-              <span>
-                <MdOutlineExplore className="text-2xl" />
-              </span>
-              <span>Check it out</span>
-            </button>
+            <Link to={"/category/shoes"}>
+              <button className="text-white text-lg border-white border-[1px] p-3 hover:bg-white hover:text-black duration-200 rounded-xl flex items-center space-x-3  ">
+                <span>
+                  <MdOutlineExplore className="text-2xl" />
+                </span>
+                <span>Check it out</span>
+              </button>
+            </Link>
           </div>
 
           <Image
@@ -63,12 +66,14 @@ const TestCarousel = () => {
               Elevate your urban look with the latest trends in street fashion.
               Explore our new arrivals today and upgrade your streetwear game!
             </p>
-            <button className="text-white text-lg border-white border-[1px] p-3 hover:bg-white hover:text-black duration-200 rounded-xl flex items-center space-x-3  ">
-              <span>
-                <MdOutlineExplore className="text-2xl" />
-              </span>
-              <span>Check it out</span>
-            </button>
+            <Link to={"/category/shirt"}>
+              <button className="text-white text-lg border-white border-[1px] p-3 hover:bg-white hover:text-black duration-200 rounded-xl flex items-center space-x-3  ">
+                <span>
+                  <MdOutlineExplore className="text-2xl" />
+                </span>
+                <span>Check it out</span>
+              </button>
+            </Link>
           </div>
           <Image
             className="absolute top-0 -z-10 w-[80rem] h-[20rem]   opacity-40 object-cover aspect-auto"
@@ -90,12 +95,14 @@ const TestCarousel = () => {
               now to dive into our wide range of variety and find your perfect
               summer essentials.
             </p>
-            <button className="text-white text-lg border-white border-[1px] p-3 hover:bg-white hover:text-black duration-200 rounded-xl flex items-center space-x-3  ">
-              <span>
-                <MdOutlineExplore className="text-2xl" />
-              </span>
-              <span>Check it out</span>
-            </button>
+            <Link to={"/category/shirt"}>
+              <button className="text-white text-lg border-white border-[1px] p-3 hover:bg-white hover:text-black duration-200 rounded-xl flex items-center space-x-3  ">
+                <span>
+                  <MdOutlineExplore className="text-2xl" />
+                </span>
+                <span>Check it out</span>
+              </button>
+            </Link>
           </div>
           <Image
             className="absolute top-0  -z-10 w-[80rem] h-[20rem]   opacity-40 object-cover aspect-auto"

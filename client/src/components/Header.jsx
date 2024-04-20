@@ -13,6 +13,11 @@ import { FaUserCircle } from "react-icons/fa";
 import { RiUpload2Fill } from "react-icons/ri";
 import { IoMdCart } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { GiConverseShoe } from "react-icons/gi";
+import { PiPantsFill } from "react-icons/pi";
+import { FaTshirt } from "react-icons/fa";
+import { FaRedhat } from "react-icons/fa6";
+import { FaBaby } from "react-icons/fa";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -76,21 +81,54 @@ const Header = () => {
             onMouseEnter={() => setIsOpen(true)}
             onMouseLeave={() => setIsOpen(false)}
             onMouseOut={() => setIsOpen(true)}
-            className="absolute z-30 left-[59%] top-[50px] border-[1px]  mt-2 bg-white text-black rounded-md overflow-hidden shadow-xl "
+            className="absolute z-30 left-[55%] top-[50px] border-[1px]  mt-2 bg-white text-black rounded-md overflow-hidden shadow-xl "
           >
             <div className="w-48">
               <ul>
-                <li className="px-4 py-2 hover:text-gray-600 cursor-pointer flex space-x-2 items-center">
-                  <IoMdPricetag />
-                  <Link to={"/buyandsell"}>Buy & Sell</Link>
+                <li className="px-4 py-2 hover:text-gray-600 cursor-pointer">
+                  <Link
+                    className=" flex space-x-5 items-center"
+                    to={"/category/pants"}
+                  >
+                    <PiPantsFill />
+                    <span>Pants</span>
+                  </Link>
                 </li>
-                <li className="px-4 py-2 hover:text-gray-600 cursor-pointer flex space-x-2 items-center">
-                  <FaCar />
-                  <Link to={"/carsandvehicles"}>Cars & Vehicles</Link>
+                <li className="px-4 py-2 hover:text-gray-600 cursor-pointer ">
+                  <Link
+                    className="flex space-x-5 items-center"
+                    to={"/category/shirt"}
+                  >
+                    <FaTshirt />
+                    <span>Shirts</span>
+                  </Link>
                 </li>
-                <li className="px-4 py-2 hover:text-gray-600 cursor-pointer flex space-x-2 items-center">
-                  <FaHouseChimney />
-                  <Link to={"/realestate"}>RealEstate</Link>
+                <li className="px-4 py-2 hover:text-gray-600 cursor-pointer ">
+                  <Link
+                    className="flex space-x-5 items-center"
+                    to={"/category/shoes"}
+                  >
+                    <GiConverseShoe />
+                    <span>Shoes</span>
+                  </Link>
+                </li>
+                <li className="px-4 py-2 hover:text-gray-600 cursor-pointer ">
+                  <Link
+                    className="flex space-x-5 items-center"
+                    to={"/category/hats"}
+                  >
+                    <FaRedhat />
+                    <span>Hats</span>
+                  </Link>
+                </li>
+                <li className="px-4 py-2 hover:text-gray-600 cursor-pointer ">
+                  <Link
+                    className="flex space-x-5 items-center"
+                    to={"/category/baby_wears"}
+                  >
+                    <FaBaby />
+                    <span>Baby wears</span>
+                  </Link>
                 </li>
               </ul>
             </div>
