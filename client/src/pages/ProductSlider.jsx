@@ -181,7 +181,11 @@ const ProductSlideCarousel = ({ categoryTitle }) => {
                       )}
                     </div>
                     <h3 className=" text-center py-2 text-black whitespace-nowrap overflow-hidden font-medium ">
-                      {item.title}
+                      {item.title.length > 30 ? (
+                        <div>{item.title.slice(0, 30)}...</div>
+                      ) : (
+                        <div>{item.title}</div>
+                      )}
                     </h3>
                     <div className="flex justify-evenly px-10">
                       <h1 className="text-gray-700 text-center text-2xl py-1 font-semibold ">

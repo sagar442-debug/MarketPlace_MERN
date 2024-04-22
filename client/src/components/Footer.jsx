@@ -1,5 +1,11 @@
 import React from "react";
-import { FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
+import {
+  FaInstagram,
+  FaLinkedin,
+  FaTwitter,
+  FaGithubSquare,
+  FaGithub,
+} from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -43,12 +49,12 @@ const Footer = () => {
           <FaLinkedin className="text-3xl" />
         </a>
         <a
-          href="https://twitter.com/sagarsapkota091"
+          href="https://github.com/sagar442-debug"
           target="_blank"
           rel="noopener noreferrer"
           className="text-white hover:text-gray-400"
         >
-          <FaTwitter className="text-3xl" />
+          <FaGithub className="text-3xl" />
         </a>
       </div>
     </footer>

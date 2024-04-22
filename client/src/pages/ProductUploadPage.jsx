@@ -52,7 +52,7 @@ const ProductUploadPage = () => {
 
     let newMessage = "";
 
-    if (title.length < 15) {
+    if (title.length < 10) {
       newMessage = "Title must be at least 15 characters!";
     } else if (title.length > 35) {
       newMessage = "The title must be less than 35 characters.";
