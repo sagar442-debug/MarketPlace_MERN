@@ -124,8 +124,8 @@ const App = () => {
         totalRequest,
       }}
     >
-      <div className="w-full bg-[#383838] h-full">
-        <div className="max-w-[1080px] mx-auto align items-center">
+      <div className="lg:w-full bg-[#383838] lg:h-full overflow-x-hidden ">
+        <div className="lg:max-w-[1080px] lg:mx-auto lg:align lg:items-center">
           <RouterProvider router={router} />
         </div>
         <Footer />

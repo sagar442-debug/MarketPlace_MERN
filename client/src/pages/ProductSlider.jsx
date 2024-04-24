@@ -28,13 +28,17 @@ const ProductSlideCarousel = ({ categoryTitle }) => {
       breakpoint: { max: 3000, min: 1024 },
       items: 3.5,
     },
+    smallDesktop: {
+      breakpoint: { max: 1024, min: 960 },
+      items: 2.5,
+    },
     tablet: {
-      breakpoint: { max: 1024, min: 464 },
+      breakpoint: { max: 720, min: 580 },
       items: 2,
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
-      items: 1,
+      items: 1.3,
     },
   };
 
