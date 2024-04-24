@@ -93,11 +93,11 @@ const Header = () => {
         <div className="flex items-center md:flex md:items-center">
           <GiHamburgerMenu
             onClick={toggleHamburger}
-            className={`md:hidden text-3xl absolute right-3 text-white top-5 ${showHam}`}
+            className={`md:hidden text-3xl absolute right-3 text-white top-6 ${showHam}`}
           />
           <RxCross2
             onClick={toggleCross}
-            className={`md:hidden text-3xl  absolute right-3 text-white top-5 ${showCross}`}
+            className={`md:hidden text-3xl  absolute right-3 text-white top-6 ${showCross}`}
           />
           <Link to={"/"}>
             <h1 className="text-3xl my-5 md:my-0 md:mb-0 lg:font-semibold lg:text-3xl uppercase md:text-3xl sm:text-3xl md:font-semibold font-semibold  ">
