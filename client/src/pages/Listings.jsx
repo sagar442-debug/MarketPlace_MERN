@@ -29,7 +29,7 @@ const Listings = () => {
       setProductList(data.allProducts);
     };
     fetchUserProducts();
-  }, []);
+  }, [productList]);
 
   return (
     <div className="font-monsterrat min-h-[100vh] py-5 ">
