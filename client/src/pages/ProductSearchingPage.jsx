@@ -99,9 +99,12 @@ const ProductSearchingPage = () => {
       </div>
 
       {totalProducts.length > 0 ? (
-        <div className="grid grid-cols-4 gap-11 mt-4 max-w-full">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 lg:grid-cols-4 lg:gap-11 mt-4 max-w-full">
           {totalProducts.map((product, i) => (
-            <div className="card bg-white w-[15rem]" key={i}>
+            <div
+              className="card bg-white md:w-[13rem] md:h-[20rem] lg:w-[15rem] lg:h-auto"
+              key={i}
+            >
               <Link to={`/product/${product._id}`}>
                 <img
                   className="w-72 h-48 object-cover"
