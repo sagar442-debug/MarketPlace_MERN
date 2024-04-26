@@ -161,10 +161,10 @@ const ProductDetail = () => {
       <ToastContainer />
       {productData ? (
         <div>
-          <div className=" flex mt-10 ">
-            <div className="mr-4 space-y-2  h-[34rem] overflow-hidden">
+          <div className=" lg:flex lg:mt-10 ">
+            <div className="flex justify-center gap-6 items-center lg:block  h-[6rem] mt-2 lg:mr-4 lg:space-y-2  lg:h-[34rem] overflow-hidden">
               <img
-                className="aspect-square object-cover h-16 w-20 cursor-pointer hover:opacity-45 duration-200"
+                className=" aspect-square object-cover h-16 w-20 cursor-pointer hover:opacity-45 duration-200"
                 src={productData.imgUrl}
                 onClick={() => changeThumbnailImage(productData.imgUrl)}
                 alt=""
@@ -185,11 +185,11 @@ const ProductDetail = () => {
             <CarouselProvider
               naturalSlideWidth={100}
               naturalSlideHeight={125}
-              totalSlides={3}
+              totalSlides={1}
               dragEnabled={false}
-              className="h-[100%] mr-10"
+              className="h-[100%] lg:mr-10 flex justify-center"
             >
-              <Slider className="h-[34rem] w-[28rem]">
+              <Slider className="lg:h-[34rem] lg:w-[28rem] w-[35rem] ">
                 <Slide>
                   <ImageWithZoom
                     className="object-center object-cover "
@@ -200,12 +200,14 @@ const ProductDetail = () => {
               </Slider>
             </CarouselProvider>
 
-            <div className="text w-[30rem]">
-              <h1 className="text-3xl text-white font-medium">
+            <div className=" lg:w-[30rem]">
+              <h1 className="text-3xl text-white font-medium text-center lg:text-left mt-4 lg:mt-0">
                 {productData.title}
               </h1>
               <h1 className=" text-white font-medium"></h1>
-              <h1 className="text-white text-xl  pt-2 font-semibold">$300</h1>
+              <h1 className="text-white text-2xl  pt-2 font-semibold">
+                Price: ${productData.price}
+              </h1>
 
               <div className="size py-1 text-white">
                 <h1>Sizes:</h1>
@@ -251,7 +253,7 @@ const ProductDetail = () => {
                   productData.description
                 )}
               </div>
-              <div className="quantity mt-2  ">
+              <div className="quantity mt-2 lg:block flex flex-col items-center ">
                 <h1 className="text-white">Quantity:</h1>
                 <div className="quantity text-white text-xl w-36 flex space-x-6 items-center border-[1px] justify-center mt-2">
                   <button
@@ -269,7 +271,7 @@ const ProductDetail = () => {
                   </button>
                 </div>
               </div>
-              <div className="buttons mt-6  flex space-x-4">
+              <div className="buttons mt-6  flex space-x-4 justify-center lg:justify-normal">
                 <button
                   onClick={handleBuy}
                   className="text-white border-[1px] border-black bg-black p-3 hover:bg-white hover:text-black hover:border-white duration-200 rounded-xl"

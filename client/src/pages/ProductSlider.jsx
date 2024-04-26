@@ -37,8 +37,12 @@ const ProductSlideCarousel = ({ categoryTitle }) => {
       items: 2,
     },
     mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1.3,
+      breakpoint: { max: 464, min: 340 },
+      items: 1.2,
+    },
+    smallMobile: {
+      breakpoint: { max: 340, min: 0 },
+      items: 1,
     },
   };
 

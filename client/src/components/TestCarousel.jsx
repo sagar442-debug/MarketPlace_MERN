@@ -28,7 +28,7 @@ const TestCarousel = () => {
       <Slider>
         <Slide index={0}>
           <div className="sm:pl-24 pl-12 py-10 sm:py-20 lg:space-y-4">
-            <h1 className="text-white lg:text-4xl  lg:font-semibold">
+            <h1 className="text-white lg:text-4xl font-semibold text-2xl lg:font-semibold">
               {" "}
               Get yourselves the new nike 24's
             </h1>
@@ -57,7 +57,7 @@ const TestCarousel = () => {
         </Slide>
         <Slide index={1}>
           <div className="sm:pl-24 pl-12 py-10 sm:py-20">
-            <h1 className="text-white lg:text-4xl  lg:font-semibold">
+            <h1 className="text-white lg:text-4xl font-semibold text-2xl lg:font-semibold">
               {" "}
               New street wears available!!
             </h1>
@@ -84,7 +84,7 @@ const TestCarousel = () => {
         </Slide>
         <Slide index={2}>
           <div className="sm:pl-24 pl-12 py-10 sm:py-20">
-            <h1 className="text-white lg:text-4xl  lg:font-semibold">
+            <h1 className="text-white lg:text-4xl font-semibold text-2xl lg:font-semibold">
               {" "}
               Summers here!!
             </h1>
