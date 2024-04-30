@@ -9,6 +9,7 @@ const SearchBar = () => {
   const [searchTitle, setSearchTitle] = useState("");
   const navigate = useNavigate();
   const params = useParams();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     if (!params.productTitle) {
@@ -26,7 +27,7 @@ const SearchBar = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5001/product/search?term=${inputValue}`, // Use inputValue instead of searchTitle
+        `${apiUrl}/product/search?term=${inputValue}`, // Use inputValue instead of searchTitle
         {
           method: "GET",
           headers: {

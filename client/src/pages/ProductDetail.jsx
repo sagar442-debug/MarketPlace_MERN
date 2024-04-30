@@ -29,6 +29,7 @@ const ProductDetail = () => {
   const [thumbnailImage, setThumbnailImage] = useState();
   const [quantity, setQuantity] = useState(1);
   const token = localStorage.getItem("token");
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -46,15 +47,12 @@ const ProductDetail = () => {
 
     try {
       setThumbnailImage(" ");
-      const response = await fetch(
-        `http://localhost:5001/category/product/${productId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${apiUrl}/category/product/${productId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         console.log("Error fetching the data");
@@ -101,7 +99,7 @@ const ProductDetail = () => {
       navigate("/login");
     } else {
       try {
-        const response = await fetch("http://localhost:5001/user/addtocart", {
+        const response = await fetch(`${apiUrl}/user/addtocart`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -136,7 +134,7 @@ const ProductDetail = () => {
       navigate("/login");
     } else {
       try {
-        const response = await fetch("http://localhost:5001/user/addtocart", {
+        const response = await fetch(`${apiUrl}/user/addtocart`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

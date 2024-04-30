@@ -16,7 +16,7 @@ const ProductSlideCarousel = ({ categoryTitle }) => {
   const [message, setMessage] = useState("");
   const notifySuccess = (message) => toast.success(message);
   const navigate = useNavigate();
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem("token");
 
   const responsive = {
@@ -50,15 +50,12 @@ const ProductSlideCarousel = ({ categoryTitle }) => {
     const getApi = async () => {
       try {
         if (!categoryTitle) return;
-        const response = await fetch(
-          `http://localhost:5001/category/${categoryTitle}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await fetch(`${apiUrl}/category/${categoryTitle}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }
@@ -83,7 +80,7 @@ const ProductSlideCarousel = ({ categoryTitle }) => {
       navigate("/login");
     } else {
       try {
-        const response = await fetch("http://localhost:5001/user/addtocart", {
+        const response = await fetch(`${apiUrl}/user/addtocart`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -122,7 +119,7 @@ const ProductSlideCarousel = ({ categoryTitle }) => {
       navigate("/login");
     } else {
       try {
-        const response = await fetch("http://localhost:5001/user/addtocart", {
+        const response = await fetch(`${apiUrl}/user/addtocart`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

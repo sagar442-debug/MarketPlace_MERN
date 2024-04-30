@@ -5,11 +5,12 @@ import { FaEdit } from "react-icons/fa";
 const BagList = ({ productDetail, detailId, quantity, updateTotalCost }) => {
   const [finalQuantity, setFinalQuantity] = useState(quantity);
   const token = localStorage.getItem("token");
+  const apiUrl = import.meta.env.VITE_API_URL;
   const increaseQuantity = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:5001/user/changequantity/${detailId}`,
+        `${apiUrl}/user/changequantity/${detailId}`,
         {
           method: "PUT",
           headers: {
@@ -35,7 +36,7 @@ const BagList = ({ productDetail, detailId, quantity, updateTotalCost }) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:5001/user/changequantity/${detailId}`,
+        `${apiUrl}/user/changequantity/${detailId}`,
         {
           method: "PUT",
           headers: {
@@ -68,7 +69,7 @@ const BagList = ({ productDetail, detailId, quantity, updateTotalCost }) => {
   const onDeleteItem = async (e) => {
     let _id = detailId;
     try {
-      const response = await fetch("http://localhost:5001/user/deletecart", {
+      const response = await fetch(`${apiUrl}/user/deletecart`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

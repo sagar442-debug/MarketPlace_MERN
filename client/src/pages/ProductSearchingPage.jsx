@@ -8,7 +8,7 @@ const ProductSearchingPage = () => {
   const [productTitle, setProductTitle] = useState(
     params.productTitle ? params.productTitle.replace(/_/g, " ") : ""
   );
-
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [selectedOption, setSelectedOption] = useState("");
   const [totalProducts, setTotalProducts] = useState([]);
   const [originalProducts, setOriginalProducts] = useState([]);
@@ -28,7 +28,7 @@ const ProductSearchingPage = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5001/product/search?term=${productTitle}`,
+        `${apiUrl}/product/search?term=${productTitle}`,
         {
           method: "GET",
           headers: {

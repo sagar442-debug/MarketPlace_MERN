@@ -64,11 +64,12 @@ const List = ({ product }) => {
     setAltImages(product.altImages);
     setSize(product.size);
   };
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const onDelete = async () => {
     let productId = product._id;
     try {
-      const response = await fetch("http://localhost:5001/user/deleteproduct", {
+      const response = await fetch(`${apiUrl}/user/deleteproduct`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -111,7 +112,7 @@ const List = ({ product }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:5001/user/updateproduct/${product._id}`,
+        `${apiUrl}/user/updateproduct/${product._id}`,
         {
           method: "PUT",
           headers: {

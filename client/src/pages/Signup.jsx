@@ -11,6 +11,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const tokenCheck = localStorage.getItem("token");
@@ -30,7 +31,7 @@ const Signup = () => {
       setMessage("Please enter valid information");
     } else {
       try {
-        const response = await fetch("http://localhost:5001/auth/signup", {
+        const response = await fetch(`${apiUrl}/auth/signup`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

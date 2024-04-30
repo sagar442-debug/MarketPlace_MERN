@@ -13,6 +13,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const [message, setMessage] = useState(null);
   const isAuthenticate = useSelector((state) => state.auth.isAuthenticate);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -24,7 +25,7 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5001/auth/login", {
+      const response = await fetch(`${apiUrl}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

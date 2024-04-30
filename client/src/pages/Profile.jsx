@@ -19,10 +19,11 @@ const Profile = () => {
   const [message, setMessage] = useState("");
   const notifyError = (message) => toast.error(message);
   const notifySuccess = (message) => toast.success(message);
+  const apiUrl = import.meta.env.VITE_API_URL;
   useEffect(() => {
     const userData = async (req, res) => {
       try {
-        const response = await fetch("http://localhost:5001/user/data", {
+        const response = await fetch(`${apiUrl}/user/data`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -53,21 +54,18 @@ const Profile = () => {
   const handleSaveChanges = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        "http://localhost:5001/user/changeUserData",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            fullName,
-            email,
-            previousPassword,
-            newPassword,
-          }),
-        }
-      );
+      const response = await fetch(`${apiUrl}/user/changeUserData`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fullName,
+          email,
+          previousPassword,
+          newPassword,
+        }),
+      });
       const output = await response.json();
       const outputMessage = output.message;
 
@@ -91,7 +89,7 @@ const Profile = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5001/user/deleteuser", {
+      const response = await fetch(`${apiUrl}/user/deleteuser`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

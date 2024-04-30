@@ -13,6 +13,7 @@ const ProductUploadPage = () => {
   const navigate = useNavigate();
   const [altImages, setAltImages] = useState("");
   const [size, setSize] = useState("");
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const checkToken = () => {
@@ -75,7 +76,7 @@ const ProductUploadPage = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5001/category/products", {
+      const response = await fetch(`${apiUrl}/category/products`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

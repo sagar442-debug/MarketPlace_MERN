@@ -31,6 +31,7 @@ const Header = () => {
   const [showCross, setShowCross] = useState("hidden");
   const [showHam, setShowHam] = useState("");
   const params = useParams();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     if (token) {
@@ -41,7 +42,7 @@ const Header = () => {
 
   const fetchData = async () => {
     {
-      const response = await fetch("http://localhost:5001/auth/check-token", {
+      const response = await fetch(`${apiUrl}/auth/check-token`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
