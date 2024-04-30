@@ -83,12 +83,12 @@ const CategorySelectPage = () => {
       </div>
       <div className="min-h-[95vh]">
         {totalProducts && totalProducts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 lg:grid-cols-4 lg:gap-11 mt-4 max-w-full">
+          <div className="grid justify-center sm:grid-cols-2 md:grid-cols-3 gap-2 lg:grid-cols-4 lg:gap-11 mt-4 max-w-full">
             {totalProducts.map((product, i) => (
               <div className="card bg-white w-[15rem]" key={i}>
                 <Link to={`/product/${product._id}`}>
                   <img
-                    className="w-72 h-48 object-cover"
+                    className="sm:w-96 sm:h-48 object-cover"
                     src={product.imgUrl}
                     alt=""
                   />
