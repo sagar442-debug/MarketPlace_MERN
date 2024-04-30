@@ -6,7 +6,7 @@ const ProductSlideCarousel = () => {
   return (
     <div className="">
       <div className="font-monsterrat font-medium text-white">
-        <h1 className="text-3xl my-5 font-medium  ">All Products</h1>
+        <h1 className="text-3xl sm:my-5 mt-12  font-medium  ">All Products</h1>
         <ProductSlider categoryTitle={"allproduct"} />
       </div>
       <div className="font-monsterrat font-medium text-white">
