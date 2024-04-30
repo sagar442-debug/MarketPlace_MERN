@@ -13,6 +13,18 @@ const SignUp = async (req, res) => {
         .json({ message: "User with this email already exists" });
     }
 
+    if (fullName.length < 6) {
+      res
+        .status(303)
+        .json({ message: "Full name must be at least 6 characters" });
+    }
+
+    if (password.length < 8) {
+      res
+        .status(303)
+        .json({ message: "Password must be at least 8 characters" });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new User({

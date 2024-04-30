@@ -22,6 +22,13 @@ const Signup = () => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
+
+    if (fullName.length < 6) {
+      setMessage("Full name must be at least 6 characters");
+    } else if (password.length < 8) {
+      setMessage("Password must be at least 8 characters");
+    }
+
     if (
       email == "" ||
       fullName == "" ||
@@ -29,28 +36,27 @@ const Signup = () => {
       confirmPassword == ""
     ) {
       setMessage("Please enter valid information");
-    } else {
-      try {
-        const response = await fetch(`${apiUrl}/auth/signup`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, fullName, password }),
-        });
+    }
+    try {
+      const response = await fetch(`${apiUrl}/auth/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, fullName, password }),
+      });
 
-        const data = await response.json();
-        const message = data.message;
-        setMessage(message);
-        if (response.ok) {
-          console.log("valid output");
-          navigate("/login");
-        } else {
-          console.log("Invalid output");
-        }
-      } catch (error) {
-        setMessage(error.message);
+      const data = await response.json();
+      const message = data.message;
+      setMessage(message);
+      if (response.ok) {
+        console.log("valid output");
+        navigate("/login");
+      } else {
+        console.log("Invalid output");
       }
+    } catch (error) {
+      setMessage(error.message);
     }
   };
 
