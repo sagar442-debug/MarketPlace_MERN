@@ -19,7 +19,7 @@ mongoose
   .catch((err) => console.log("There was an error", err));
 
 app.listen(PORT, (req, res) => {
-  res.send(`Server running on http://localhost:${PORT} `);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
 
 app.use("/auth", authRoutes);
