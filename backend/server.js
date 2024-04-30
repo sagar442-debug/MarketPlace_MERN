@@ -18,12 +18,8 @@ mongoose
   .then(() => console.log("Connected to mongo db"))
   .catch((err) => console.log("There was an error", err));
 
-app.get("/", (req, res) => {
-  res.send("hello world");
-});
-
 app.listen(PORT, (req, res) => {
-  console.log(`Server running on http://localhost:${PORT} `);
+  res.send(`Server running on http://localhost:${PORT} `);
 });
 
 app.use("/auth", authRoutes);
