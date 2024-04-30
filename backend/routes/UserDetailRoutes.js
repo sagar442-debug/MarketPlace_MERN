@@ -4,6 +4,7 @@ const router = express.Router();
 const PasswordChange = require("../controllers/PasswordChange");
 const DeleteUser = require("../controllers/DeleteUser");
 const DeleteProduct = require("../controllers/DeleteProduct");
+const updateProduct = require("../controllers/UpdateProduct");
 const {
   DeleteItem,
   AddToCart,
@@ -19,5 +20,6 @@ router.delete("/deletecart", DeleteItem);
 router.put("/changequantity/:_id", quantityChange);
 router.post("/emptycart", ClearCart);
 router.delete("/deleteproduct", DeleteProduct);
+router.put("/updateproduct/:productId", updateProduct);
 
 module.exports = router;

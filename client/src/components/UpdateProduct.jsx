@@ -13,6 +13,7 @@ const UpdateProduct = () => {
   const navigate = useNavigate();
   const [altImages, setAltImages] = useState("");
   const [size, setSize] = useState("");
+  const [hide, setHide] = useState("hidden");
 
   const handleImgUrl = (e) => {
     setImgUrl(e.target.value);
@@ -38,12 +39,24 @@ const UpdateProduct = () => {
     console.log("Submitted");
   };
 
+  const onCancel = (e) => {
+    console.log(hide);
+    e.preventDefault();
+    if (hide == "") {
+      setHide("hidden");
+    } else {
+      setHide("");
+    }
+  };
+
   return (
     <div className=" ">
-      <div className="bg-black min-h-[100vh] min-w-[99vw] absolute -top-[4rem] -left-[45rem] opacity-65"></div>
+      <div
+        className={`${hide} bg-black min-h-[100vh] min-w-[99vw] absolute -top-[4rem] -left-[45rem] opacity-25`}
+      ></div>
       <form
         onSubmit={handleSubmit}
-        className="bg-white absolute w-96 left-[37%] z-10 shadow-[0_30px_30px_0px_rgba(0,0,0,0.5)] border-[1px] rounded px-8 pt-6 pb-8 mb-4"
+        className={`${hide} bg-white absolute w-96 left-[37%] z-10 shadow-[0_30px_30px_0px_rgba(0,0,0,0.5)] border-[1px] rounded px-8 pt-6 pb-8 mb-4`}
       >
         <div className="mb-4">
           <label htmlFor="title" className="block font-medium mb-2">
@@ -164,6 +177,7 @@ const UpdateProduct = () => {
             Update
           </button>
           <button
+            onClick={onCancel}
             type="submit"
             className=" text-white bg-red-700 hover:bg-red-900 hover:border-red-700 hover:text-white border-[1px] border-red-700 px-4 py-2 rounded duration-100  hover:border-slate-500"
           >
