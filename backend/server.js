@@ -22,10 +22,6 @@ app.listen(PORT, (req, res) => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
 
-app.use("/", (req, res) => {
-  res.json({ message: "hello from express app" });
-});
-
 app.use("/auth", authRoutes);
 app.use("/category", categoryRoutes);
 app.use("/user", UserDetails);
