@@ -8,13 +8,14 @@ const Listings = () => {
   const token = localStorage.getItem("token");
   const [message, setMessage] = useState();
   const [productList, setProductList] = useState([]);
+  const apiUrl = import.meta.env.VITE_API_URL;
   if (!token) {
     navigate("/login");
   }
 
   useEffect(() => {
     const fetchUserProducts = async () => {
-      const response = await fetch("http://localhost:5001/user/data", {
+      const response = await fetch("${apiUrl}/user/data", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

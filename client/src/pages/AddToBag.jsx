@@ -16,6 +16,7 @@ const AddToBag = () => {
   const [loading, setLoading] = useState(false);
   const [stripeData, setStripeData] = useState([]);
   const [userId, setUserId] = useState("");
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     if (!token) {
@@ -61,7 +62,7 @@ const AddToBag = () => {
 
   const userData = async () => {
     try {
-      const response = await fetch("http://localhost:5001/user/data", {
+      const response = await fetch(`${apiUrl}/user/data`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -89,7 +90,7 @@ const AddToBag = () => {
       for (const bag of bagData) {
         try {
           const response = await fetch(
-            `http://localhost:5001/category/product/${bag.productId}`,
+            `${apiUrl}/category/product/${bag.productId}`,
             {
               method: "GET",
               headers: {
@@ -130,7 +131,7 @@ const AddToBag = () => {
   const handleCheckOut = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5001/payment/checkout", {
+      const response = await fetch(`${apiUrl}/payment/checkout`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -143,7 +144,7 @@ const AddToBag = () => {
       window.location = data.url;
       if (response.ok) {
         try {
-          const empty = await fetch("http://localhost:5001/user/emptycart/", {
+          const empty = await fetch(`${apiUrl}/user/emptycart/`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

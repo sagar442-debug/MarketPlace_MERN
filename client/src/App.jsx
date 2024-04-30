@@ -26,6 +26,8 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [totalRequest, setTotalRequest] = useState(0);
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const handleLoadingFalse = () => {
     setLoading(false);
   };

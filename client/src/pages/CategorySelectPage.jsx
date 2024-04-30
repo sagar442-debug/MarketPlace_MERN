@@ -8,6 +8,7 @@ const CategorySelectPage = () => {
   const [totalProducts, setTotalProducts] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
   const [originalProducts, setOriginalProducts] = useState([]);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     setCategoryTitle(params.category);
@@ -16,9 +17,7 @@ const CategorySelectPage = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:5001/category/${params.category}`
-      );
+      const response = await fetch(`${apiUrl}/category/${params.category}`);
 
       if (!response.ok) {
         console.error("Error fetching the data");
