@@ -99,7 +99,7 @@ const ProductSearchingPage = () => {
       </div>
 
       {totalProducts.length > 0 ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 lg:grid-cols-4 lg:gap-11 mt-4 max-w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 lg:grid-cols-4 lg:gap-11 mt-4 max-w-full">
           {totalProducts.map((product, i) => (
             <div
               className="card bg-white md:w-[13rem] md:h-[20rem] lg:w-[15rem] lg:h-auto"

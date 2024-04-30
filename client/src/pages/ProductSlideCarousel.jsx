@@ -4,7 +4,7 @@ import LoadingComp from "../components/LoadingComp";
 
 const ProductSlideCarousel = () => {
   return (
-    <div>
+    <div className="">
       <div className="font-monsterrat font-medium text-white">
         <h1 className="text-3xl my-5 font-medium  ">All Products</h1>
         <ProductSlider categoryTitle={"allproduct"} />

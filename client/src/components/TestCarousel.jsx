@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 const TestCarousel = () => {
   return (
     <CarouselProvider
-      className="font-monsterrat h-[38vh]  xl:h-[35vh] mt-2 "
+      className="font-monsterrat h-[36vh] md:h-[38vh]  xl:h-[35vh] mt-2 "
       naturalSlideWidth={100}
       naturalSlideHeight={125}
       totalSlides={3}
