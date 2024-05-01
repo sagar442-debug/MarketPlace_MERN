@@ -20,8 +20,8 @@ const StripePaymentMethod = async (req, res) => {
           quantity: item.quantity,
         };
       }),
-      success_url: "http://localhost:5173/addtobag",
-      cancel_url: "http://localhost:5173/addtobag",
+      success_url: "https://market-place-mern-frontend.vercel.app/success",
+      cancel_url: "https://market-place-mern-frontend.vercel.app/addtobag",
     });
 
     res.json({ url: session.url }); // Corrected session URL
