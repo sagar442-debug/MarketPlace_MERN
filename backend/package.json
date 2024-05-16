@@ -15,5 +15,8 @@
     "multer-s3": "^3.0.1",
     "nodemon": "^3.1.0",
     "stripe": "^15.3.0"
+  },
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.7"
   }
 }
